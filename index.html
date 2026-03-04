@@ -2,79 +2,108 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>UX Quotes Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuoteVault — Firebase App</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://kit.fontawesome.com/your-kit.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-  <!-- Ambient Orbs -->
-  <div class="orb orb--1"></div>
-  <div class="orb orb--2"></div>
-  <div class="orb orb--3"></div>
+  <!-- ── Header ──────────────────────────────────────────────────────────── -->
+  <header>
+    <h1>QuoteVault</h1>
+    <p>Your personal collection of inspiring quotes — powered by Firebase</p>
+  </header>
 
-  <!-- App Container -->
-  <div class="app">
+  <main>
 
-    <!-- Header -->
-    <header class="header">
-      <div class="header-logo">
-        <i class="fa-solid fa-lightbulb"></i> UX Quotes Lab
-      </div>
-      <div class="header-count">Total Quotes: <span id="totalCount">0</span></div>
-    </header>
+    <!-- ── Add / Edit Form ──────────────────────────────────────────────── -->
+    <section id="formSection">
+      <h2>✦ Add New Quote</h2>
+      <div class="form-grid">
 
-    <!-- Quote Display -->
-    <section class="quote-stage">
-      <div class="quote-card" id="quoteCard">
-        <div class="quote-content">
-          <div class="quote-mark">“</div>
-          <blockquote id="quoteText">Design is how it works, not how it looks.</blockquote>
-          <div class="quote-meta">
-            <div class="quote-author" id="quoteAuthor">— Steve Jobs</div>
-            <div class="quote-category" id="quoteCategory">UX</div>
-          </div>
-          <div class="quote-actions">
-            <button class="action-btn like-btn" id="likeBtn">
-              <i class="fa-solid fa-heart"></i> Like
-            </button>
-            <button class="action-btn copy-btn" id="copyBtn">
-              <i class="fa-solid fa-copy"></i> Copy
-            </button>
-          </div>
+        <div>
+          <label for="quoteInput">Quote *</label>
+          <textarea
+            id="quoteInput"
+            placeholder="Enter an inspiring quote…"
+            rows="3"
+          ></textarea>
         </div>
-      </div>
-    </section>
 
-    <!-- Add Quote Section -->
-    <section class="add-section">
-      <div class="add-card">
-        <div class="add-title">
-          <i class="fa-solid fa-plus"></i> Add New Insight
-        </div>
-        <div class="form-group">
-          <textarea id="inputQuote" placeholder="Type your quote here..."></textarea>
-        </div>
         <div class="form-row">
-          <input type="text" id="inputAuthor" placeholder="Author" />
-          <input type="text" id="inputCategory" placeholder="Category" />
+          <div>
+            <label for="authorInput">Author</label>
+            <input type="text" id="authorInput" placeholder="e.g. Marcus Aurelius" />
+          </div>
+          <div>
+            <label for="categoryInput">Category</label>
+            <select id="categoryInput">
+              <option value="Motivation">Motivation</option>
+              <option value="Wisdom">Wisdom</option>
+              <option value="Life">Life</option>
+              <option value="Success">Success</option>
+              <option value="Love">Love</option>
+              <option value="Philosophy">Philosophy</option>
+              <option value="Humor">Humor</option>
+              <option value="General">General</option>
+            </select>
+          </div>
         </div>
-        <button class="submit-btn" id="addQuoteBtn">Add Quote</button>
+
+        <div class="btn-row">
+          <button id="addBtn">Add Quote</button>
+          <button id="cancelEditBtn">Cancel</button>
+        </div>
+
       </div>
     </section>
 
-    <!-- Quote List -->
-    <section class="list-section">
-      <div class="list-header">
-        <div class="list-title">
-          <i class="fa-solid fa-list"></i> All Quotes
-        </div>
-      </div>
-      <div class="quotes-list" id="quotesList"></div>
+    <!-- ── Random Quote ──────────────────────────────────────────────────── -->
+    <section class="random-section">
+      <button id="randomBtn">🎲 Random Quote</button>
+      <div id="randomDisplay" aria-live="polite"></div>
     </section>
 
-  </div>
+    <!-- ── Quotes List ───────────────────────────────────────────────────── -->
+    <section>
+      <div class="toolbar">
+        <h2>All Quotes</h2>
+        <span id="totalCount">0 quotes</span>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search quotes or authors…"
+          aria-label="Search quotes"
+        />
+        <select id="filterSelect" aria-label="Filter by category">
+          <option value="">All Categories</option>
+        </select>
+      </div>
+
+      <!-- Loading Spinner -->
+      <div id="loading">
+        <div class="spinner"></div>
+        <span>Loading quotes…</span>
+      </div>
+
+      <!-- Quotes Grid -->
+      <div id="quotesList" role="list" aria-label="Quotes collection"></div>
+
+      <!-- Empty State (inside grid via CSS) -->
+      <div id="emptyState" role="status">
+        <div class="empty-icon">📜</div>
+        <p><strong>No quotes found</strong></p>
+        <p>Add your first quote above or try a different search.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Toast Notification ───────────────────────────────────────────────── -->
+  <div id="toast" role="alert" aria-live="assertive"></div>
+
+  <!-- ── Scripts (type=module for ES imports) ─────────────────────────────── -->
+  <script type="module" src="app.js"></script>
 
 </body>
 </html>
