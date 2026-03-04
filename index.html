@@ -2,108 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QuoteVault — Firebase App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quotation App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="quotes.jpg" type="image/jpg">
 </head>
 <body>
+  <div class="container">
 
-  <!-- ── Header ──────────────────────────────────────────────────────────── -->
-  <header>
-    <h1>QuoteVault</h1>
-    <p>Your personal collection of inspiring quotes — powered by Firebase</p>
-  </header>
+    <h1>Quotations</h1>
+    <p class="subtitle">Allah Iqbal: “Nations are born in the hearts of poets.”</p>
 
-  <main>
+    <div class="new-quote">
+      <textarea id="quoteInput" placeholder="Write your quote here..."></textarea>
+      <button id="addQuoteBtn">Add Quote</button>
+    </div>
+   
 
-    <!-- ── Add / Edit Form ──────────────────────────────────────────────── -->
-    <section id="formSection">
-      <h2>✦ Add New Quote</h2>
-      <div class="form-grid">
+    <div class="all-quotes-header">
+      <span>All Quotes</span>
+      <span id="quoteCount" class="quote-count">0 quotes</span>
+    </div>
 
-        <div>
-          <label for="quoteInput">Quote *</label>
-          <textarea
-            id="quoteInput"
-            placeholder="Enter an inspiring quote…"
-            rows="3"
-          ></textarea>
-        </div>
+    <div id="quotes" class="quotes-list"></div>
+  </div>
 
-        <div class="form-row">
-          <div>
-            <label for="authorInput">Author</label>
-            <input type="text" id="authorInput" placeholder="e.g. Marcus Aurelius" />
-          </div>
-          <div>
-            <label for="categoryInput">Category</label>
-            <select id="categoryInput">
-              <option value="Motivation">Motivation</option>
-              <option value="Wisdom">Wisdom</option>
-              <option value="Life">Life</option>
-              <option value="Success">Success</option>
-              <option value="Love">Love</option>
-              <option value="Philosophy">Philosophy</option>
-              <option value="Humor">Humor</option>
-              <option value="General">General</option>
-            </select>
-          </div>
-        </div>
+<div id="modalOverlay" class="modal-overlay hidden"></div>
 
-        <div class="btn-row">
-          <button id="addBtn">Add Quote</button>
-          <button id="cancelEditBtn">Cancel</button>
-        </div>
 
-      </div>
-    </section>
+<div id="editModal" class="modal hidden">
+  <h2><span style="color:#ff6f61;"></span> Edit Quote</h2>
+  <textarea id="editTextarea" rows="4" placeholder="Edit your quote..."></textarea>
+  <div class="modal-buttons">
+    <button id="cancelEdit" class="btn cancel-btn">Cancel</button>
+    <button id="saveEdit" class="btn save-btn">Save Changes</button>
+  </div>
+</div>
 
-    <!-- ── Random Quote ──────────────────────────────────────────────────── -->
-    <section class="random-section">
-      <button id="randomBtn">🎲 Random Quote</button>
-      <div id="randomDisplay" aria-live="polite"></div>
-    </section>
 
-    <!-- ── Quotes List ───────────────────────────────────────────────────── -->
-    <section>
-      <div class="toolbar">
-        <h2>All Quotes</h2>
-        <span id="totalCount">0 quotes</span>
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="Search quotes or authors…"
-          aria-label="Search quotes"
-        />
-        <select id="filterSelect" aria-label="Filter by category">
-          <option value="">All Categories</option>
-        </select>
-      </div>
+<div id="deleteModal" class="modal hidden">
+  <h2><span style="color:#ff3c3c;">⚠️</span> Confirm Delete</h2>
+  <p>Are you sure you want to delete this quote?</p>
+  <div class="modal-buttons">
+    <button id="cancelDelete" class="btn cancel-btn">Cancel</button>
+    <button id="confirmDelete" class="btn delete-btn">Delete</button>
+  </div>
+</div>
 
-      <!-- Loading Spinner -->
-      <div id="loading">
-        <div class="spinner"></div>
-        <span>Loading quotes…</span>
-      </div>
-
-      <!-- Quotes Grid -->
-      <div id="quotesList" role="list" aria-label="Quotes collection"></div>
-
-      <!-- Empty State (inside grid via CSS) -->
-      <div id="emptyState" role="status">
-        <div class="empty-icon">📜</div>
-        <p><strong>No quotes found</strong></p>
-        <p>Add your first quote above or try a different search.</p>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ── Toast Notification ───────────────────────────────────────────────── -->
-  <div id="toast" role="alert" aria-live="assertive"></div>
-
-  <!-- ── Scripts (type=module for ES imports) ─────────────────────────────── -->
-  <script type="module" src="app.js"></script>
-
+  <script type="module" src="firebase.js"></script>
 </body>
 </html>
